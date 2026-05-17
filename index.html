@@ -415,6 +415,28 @@
     .download-box > p { color:var(--muted); margin-bottom:36px; }
     .download-note { margin-top:20px !important; font-size:13px !important; color:var(--muted); }
     .download-note a { color:var(--accent); text-decoration:underline; text-underline-offset:3px; }
+    /* 直接下載連結框 */
+    .dl-url-box {
+      display:flex; align-items:center; gap:0;
+      background:#0d0d10; border:1px solid #2a2a2a;
+      border-radius:10px; overflow:hidden;
+      margin-top:24px; text-align:left;
+    }
+    .dl-url-text {
+      flex:1; padding:11px 16px;
+      font-family:'JetBrains Mono', monospace; font-size:12px;
+      color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+    .dl-copy-btn {
+      flex-shrink:0; padding:11px 18px;
+      background:var(--bg-card); border-left:1px solid #2a2a2a;
+      color:var(--muted); font-size:12px; font-weight:700;
+      cursor:pointer; font-family:'Inter', sans-serif;
+      transition:background .2s, color .2s;
+      white-space:nowrap; border:none;
+    }
+    .dl-copy-btn:hover { background:#1a1a1a; color:var(--text); }
+    .dl-copy-btn.copied { color:var(--success); }
 
     /* ── Footer ── */
     footer { border-top:1px solid var(--border); padding:32px 48px; display:flex; align-items:center; justify-content:space-between; color:var(--muted); font-size:14px; }
@@ -763,6 +785,11 @@
       <h2 data-i18n="dl-h2">立即開始使用</h2>
       <p data-i18n="dl-p">macOS 13 以上，Apple Silicon 與 Intel 均支援</p>
       <a href="https://github.com/TobyWu666/MathSnap/releases/download/v1.0/EquaClip-1.0-signed.dmg" class="btn-primary" style="font-size:17px;padding:16px 44px;" data-i18n="dl-btn">↓ 下載 EquaClip</a>
+      <!-- 直接下載連結框 -->
+      <div class="dl-url-box">
+        <span class="dl-url-text">https://github.com/TobyWu666/MathSnap/releases/download/v1.0/EquaClip-1.0-signed.dmg</span>
+        <button class="dl-copy-btn" id="dl-copy-btn" onclick="copyDlUrl()" data-i18n="dl-copy">複製連結</button>
+      </div>
       <p class="download-note" data-i18n-html="dl-note">
         免費使用，需自備 Gemini API Key<br/>
         （<a href="https://aistudio.google.com" target="_blank" rel="noopener">免費申請</a>，每日 250 次配額）
@@ -828,6 +855,8 @@
         'dl-h2':        '立即開始使用',
         'dl-p':         'macOS 13 以上，Apple Silicon 與 Intel 均支援',
         'dl-btn':       '↓ 下載 EquaClip',
+        'dl-copy':      '複製連結',
+        'dl-copied':    '已複製 ✓',
         'dl-note':      '免費使用，需自備 Gemini API Key<br/>（<a href="https://aistudio.google.com" target="_blank" rel="noopener">免費申請</a>，每日 250 次配額）',
         'cmp-label':  '競品比較',
         'cmp-h2':     '為什麼選 EquaClip？',
@@ -886,6 +915,8 @@
         'dl-h2':        'Start Using It Now',
         'dl-p':         'macOS 13 or later, supports both Apple Silicon and Intel',
         'dl-btn':       '↓ Download EquaClip',
+        'dl-copy':      'Copy Link',
+        'dl-copied':    'Copied ✓',
         'dl-note':      'Free to use, requires your own Gemini API Key<br/>(<a href="https://aistudio.google.com" target="_blank" rel="noopener">Get it free</a>, 250 requests/day)',
         'cmp-label':  'Comparison',
         'cmp-h2':     'Why Choose EquaClip?',
@@ -1064,6 +1095,21 @@
       });
     }, { threshold: 0.4 });
     demoIO.observe(document.getElementById('demo'));
+
+    /* ══ 複製下載連結 ══ */
+    function copyDlUrl() {
+      var url = 'https://github.com/TobyWu666/MathSnap/releases/download/v1.0/EquaClip-1.0-signed.dmg';
+      var btn = document.getElementById('dl-copy-btn');
+      var lang = document.documentElement.getAttribute('data-lang') || 'zh';
+      navigator.clipboard.writeText(url).then(function() {
+        btn.textContent = T[lang]['dl-copied'];
+        btn.classList.add('copied');
+        setTimeout(function() {
+          btn.textContent = T[lang]['dl-copy'];
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
   </script>
 
 </body>
