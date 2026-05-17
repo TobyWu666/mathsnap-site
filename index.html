@@ -422,6 +422,63 @@
     .footer-links a { color:var(--muted); transition:color .2s; }
     .footer-links a:hover { color:var(--text); }
 
+    /* ── Comparison Table ── */
+    .cmp-section { text-align: center; }
+    .cmp-wrap { overflow-x: auto; margin-top: 0; border: 1px solid var(--border); border-radius: var(--r); }
+    .cmp-table {
+      width: 100%; border-collapse: collapse;
+      font-size: 14px; min-width: 560px;
+    }
+    .cmp-table thead th {
+      padding: 20px 24px; font-weight: 700; font-size: 14px;
+      background: #0e0e0e; border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .cmp-table thead th:first-child {
+      text-align: left; color: var(--muted);
+      font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+    }
+    /* EquaClip 欄高亮 */
+    .cmp-table th.col-ours,
+    .cmp-table td.col-ours {
+      background: rgba(124,106,247,.07);
+    }
+    .cmp-table th.col-ours {
+      color: var(--accent);
+      border-top: 2px solid var(--accent);
+      border-left: 1px solid rgba(124,106,247,.25);
+      border-right: 1px solid rgba(124,106,247,.25);
+    }
+    .cmp-table td.col-ours {
+      border-left: 1px solid rgba(124,106,247,.15);
+      border-right: 1px solid rgba(124,106,247,.15);
+    }
+    .cmp-table tbody tr td {
+      padding: 14px 24px; border-bottom: 1px solid var(--border);
+      color: var(--muted); vertical-align: middle; text-align: center;
+    }
+    .cmp-table tbody tr:last-child td { border-bottom: none; }
+    .cmp-table tbody tr td:first-child {
+      text-align: left; color: var(--text); font-weight: 500;
+    }
+    .cmp-table tbody tr:hover td { background: rgba(255,255,255,.015); }
+    .cmp-table tbody tr:hover td.col-ours { background: rgba(124,106,247,.1); }
+    /* ✓ ✗ */
+    .v-yes { color: #4ade80; font-size: 17px; }
+    .v-no  { color: #3a3a3a; font-size: 17px; }
+    /* 標題徽章 */
+    .best-badge {
+      display: inline-block; background: var(--accent); color: #fff;
+      font-size: 10px; font-weight: 700; letter-spacing: .05em;
+      padding: 2px 8px; border-radius: 999px; text-transform: uppercase;
+      margin-left: 7px; vertical-align: middle;
+    }
+    .cmp-competitors { color: var(--muted); font-size: 11px; font-weight: 400; margin-top: 2px; }
+    .cmp-note {
+      margin-top: 16px; font-size: 13px; color: var(--muted); text-align: center;
+    }
+    .cmp-note a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+
     /* ── RWD ── */
     @media (max-width:900px) {
       .demo-wrapper { flex-direction:column; }
@@ -593,6 +650,86 @@
 
   <hr class="divider" />
 
+  <!-- ═══ Comparison ═══ -->
+  <section id="compare" class="cmp-section">
+    <div class="section-label reveal" data-i18n="cmp-label">競品比較</div>
+    <h2 class="section-title reveal" data-i18n="cmp-h2">為什麼選 EquaClip？</h2>
+    <p class="section-sub reveal" style="margin:0 auto 48px;" data-i18n="cmp-sub">
+      和市面上主流工具相比，EquaClip 在隱私、成本與體驗上全面領先。
+    </p>
+
+    <div class="cmp-wrap reveal">
+      <table class="cmp-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="col-ours">
+              EquaClip <span class="best-badge" data-i18n="cmp-best">推薦</span>
+            </th>
+            <th>Mathpix</th>
+            <th>SimpleTex</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- 費用 -->
+          <tr>
+            <td data-i18n="cmp-r1">費用</td>
+            <td class="col-ours" style="color:var(--success);font-weight:700;" data-i18n="cmp-ec-r1">免費*</td>
+            <td data-i18n="cmp-mp-r1">$4.99 / 月起</td>
+            <td data-i18n="cmp-st-r1">免費（有限）</td>
+          </tr>
+          <!-- 全域快捷鍵 -->
+          <tr>
+            <td data-i18n="cmp-r2">全域快捷鍵觸發</td>
+            <td class="col-ours"><span class="v-yes">✓</span></td>
+            <td><span class="v-yes">✓</span></td>
+            <td><span class="v-no">✗</span></td>
+          </tr>
+          <!-- 不需帳號 -->
+          <tr>
+            <td data-i18n="cmp-r3">不需帳號註冊</td>
+            <td class="col-ours"><span class="v-yes">✓</span></td>
+            <td><span class="v-no">✗</span></td>
+            <td><span class="v-no">✗</span></td>
+          </tr>
+          <!-- 隱私 -->
+          <tr>
+            <td data-i18n="cmp-r4">截圖不上傳第三方伺服器</td>
+            <td class="col-ours"><span class="v-yes">✓</span></td>
+            <td><span class="v-no">✗</span></td>
+            <td><span class="v-no">✗</span></td>
+          </tr>
+          <!-- macOS 原生 -->
+          <tr>
+            <td data-i18n="cmp-r5">macOS 原生 App</td>
+            <td class="col-ours"><span class="v-yes">✓</span></td>
+            <td><span class="v-yes">✓</span></td>
+            <td><span class="v-no">✗</span></td>
+          </tr>
+          <!-- 辨識引擎 -->
+          <tr>
+            <td data-i18n="cmp-r6">辨識引擎</td>
+            <td class="col-ours" data-i18n="cmp-ec-r6">Gemini Vision</td>
+            <td data-i18n="cmp-mp-r6">自研模型</td>
+            <td data-i18n="cmp-st-r6">自研模型</td>
+          </tr>
+          <!-- 每日額度 -->
+          <tr>
+            <td data-i18n="cmp-r7">每日免費額度</td>
+            <td class="col-ours" style="color:var(--success);font-weight:700;" data-i18n="cmp-ec-r7">250 次</td>
+            <td data-i18n="cmp-mp-r7">依訂閱方案</td>
+            <td data-i18n="cmp-st-r7">受限制</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="cmp-note" data-i18n-html="cmp-note">
+      * 需自備 Gemini API Key（<a href="https://aistudio.google.com" target="_blank" rel="noopener">免費申請</a>，每日 250 次配額）
+    </p>
+  </section>
+
+  <hr class="divider" />
+
   <!-- ═══ How It Works ═══ -->
   <section id="how" class="how-section">
     <div class="section-label reveal" data-i18n="how-label">使用流程</div>
@@ -690,6 +827,17 @@
         'dl-p':         'macOS 13 以上，Apple Silicon 與 Intel 均支援',
         'dl-btn':       '↓ 下載 EquaClip',
         'dl-note':      '免費使用，需自備 Gemini API Key<br/>（<a href="https://aistudio.google.com" target="_blank" rel="noopener">免費申請</a>，每日 250 次配額）',
+        'cmp-label':  '競品比較',
+        'cmp-h2':     '為什麼選 EquaClip？',
+        'cmp-sub':    '和市面上主流工具相比，EquaClip 在隱私、成本與體驗上全面領先。',
+        'cmp-best':   '推薦',
+        'cmp-r1': '費用',      'cmp-r2': '全域快捷鍵觸發', 'cmp-r3': '不需帳號註冊',
+        'cmp-r4': '截圖不上傳第三方伺服器', 'cmp-r5': 'macOS 原生 App',
+        'cmp-r6': '辨識引擎',  'cmp-r7': '每日免費額度',
+        'cmp-ec-r1': '免費*',  'cmp-ec-r6': 'Gemini Vision', 'cmp-ec-r7': '250 次',
+        'cmp-mp-r1': '$4.99 / 月起', 'cmp-mp-r6': '自研模型', 'cmp-mp-r7': '依訂閱方案',
+        'cmp-st-r1': '免費（有限）', 'cmp-st-r6': '自研模型', 'cmp-st-r7': '受限制',
+        'cmp-note': '* 需自備 Gemini API Key（<a href="https://aistudio.google.com" target="_blank" rel="noopener">免費申請</a>，每日 250 次配額）',
         'footer-privacy':'Privacy Policy',
         'footer-dev':   'Developed by tobywu',
       },
@@ -737,6 +885,17 @@
         'dl-p':         'macOS 13 or later, supports both Apple Silicon and Intel',
         'dl-btn':       '↓ Download EquaClip',
         'dl-note':      'Free to use, requires your own Gemini API Key<br/>(<a href="https://aistudio.google.com" target="_blank" rel="noopener">Get it free</a>, 250 requests/day)',
+        'cmp-label':  'Comparison',
+        'cmp-h2':     'Why Choose EquaClip?',
+        'cmp-sub':    'Compared to popular alternatives, EquaClip wins on privacy, cost, and workflow.',
+        'cmp-best':   'Best',
+        'cmp-r1': 'Cost',     'cmp-r2': 'Global Shortcut', 'cmp-r3': 'No Account Required',
+        'cmp-r4': 'Screenshots stay off third-party servers', 'cmp-r5': 'Native macOS App',
+        'cmp-r6': 'Recognition Engine', 'cmp-r7': 'Daily Free Quota',
+        'cmp-ec-r1': 'Free*', 'cmp-ec-r6': 'Gemini Vision', 'cmp-ec-r7': '250 req',
+        'cmp-mp-r1': 'From $4.99 / mo', 'cmp-mp-r6': 'Proprietary', 'cmp-mp-r7': 'Plan-based',
+        'cmp-st-r1': 'Free (limited)', 'cmp-st-r6': 'Proprietary', 'cmp-st-r7': 'Limited',
+        'cmp-note': '* Requires your own Gemini API Key (<a href="https://aistudio.google.com" target="_blank" rel="noopener">get it free</a>, 250 requests/day)',
         'footer-privacy':'Privacy Policy',
       }
     };
