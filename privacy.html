@@ -79,6 +79,25 @@
 
     .email-link { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
 
+    /* 安全性標籤 */
+    .sec-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(74,222,128,.08); border: 1px solid rgba(74,222,128,.2);
+      border-radius: 999px; padding: 3px 12px;
+      font-size: 12px; font-weight: 700; color: #4ade80;
+      letter-spacing: .04em; margin-bottom: 20px;
+    }
+    /* 安全項目卡片清單 */
+    .sec-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
+    .sec-item {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 16px 20px;
+      border-left: 3px solid rgba(74,222,128,.4);
+    }
+    .sec-item-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .sec-item-desc  { font-size: 13px; color: var(--muted); line-height: 1.65; }
+    .sec-item-desc code { background: #1a1a1a; padding: 1px 6px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a99bf9; }
+
     /* Footer */
     footer { border-top: 1px solid var(--border); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; color: var(--muted); font-size: 14px; }
     .footer-links { display: flex; gap: 24px; }
@@ -120,7 +139,7 @@
       <img src="./title-logo.png" alt="MathSnap Logo" class="header-logo" />
       <h1 data-i18n="page-h1">隱私權政策</h1>
     </div>
-    <p data-i18n="page-sub">最後更新：2026 年 5 月 16 日</p>
+    <p data-i18n="page-sub">最後更新：2026 年 5 月 17 日</p>
   </div>
 
   <div class="privacy-layout">
@@ -129,13 +148,15 @@
     <aside class="toc" aria-label="目錄">
       <div class="toc-title" data-i18n="toc-title">目錄</div>
       <ul class="toc-list">
-        <li><a href="#overview"    data-i18n="toc-1">概述</a></li>
-        <li><a href="#data"        data-i18n="toc-2">我們收集哪些資料</a></li>
-        <li><a href="#third-party" data-i18n="toc-3">第三方服務</a></li>
-        <li><a href="#permissions" data-i18n="toc-4">系統權限說明</a></li>
-        <li><a href="#security"    data-i18n="toc-5">資料安全</a></li>
-        <li><a href="#changes"     data-i18n="toc-6">政策變更</a></li>
-        <li><a href="#contact"     data-i18n="toc-7">聯絡我們</a></li>
+        <li><a href="#overview"         data-i18n="toc-1">概述</a></li>
+        <li><a href="#data"             data-i18n="toc-2">我們收集哪些資料</a></li>
+        <li><a href="#third-party"      data-i18n="toc-3">第三方服務</a></li>
+        <li><a href="#permissions"      data-i18n="toc-4">系統權限說明</a></li>
+        <li><a href="#security-design"  data-i18n="toc-5">安全性設計</a></li>
+        <li><a href="#privacy-controls" data-i18n="toc-6">隱私控制設定</a></li>
+        <li><a href="#security"         data-i18n="toc-7">資料安全</a></li>
+        <li><a href="#changes"          data-i18n="toc-8">政策變更</a></li>
+        <li><a href="#contact"          data-i18n="toc-9">聯絡我們</a></li>
       </ul>
     </aside>
 
@@ -199,6 +220,8 @@
           <p>請注意：</p>
           <ul>
             <li>傳送的內容僅包含截圖圖像，不含任何個人識別資訊</li>
+            <li>API Key 透過 HTTPS request header（<code style="background:#1a1a1a;padding:1px 6px;border-radius:4px;font-family:monospace;font-size:12px;color:#a99bf9;">x-goog-api-key</code>）傳輸，不會出現在 URL 中，降低 Key 外洩風險</li>
+            <li>截圖以隨機檔名暫存，辨識流程結束後自動刪除，不永久保留</li>
             <li>Google 對此資料的處理方式依循其自身的隱私權政策</li>
             <li>你可前往 <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="email-link">Google 隱私權政策</a> 查閱詳情</li>
             <li>API Key 由你自行申請並管理，MathSnap 不持有或存取你的 Google 帳號</li>
@@ -209,6 +232,8 @@
           <p>Please note:</p>
           <ul>
             <li>Only the screenshot image is transmitted — no personal identifiers</li>
+            <li>Your API Key is sent via an HTTPS request header (<code style="background:#1a1a1a;padding:1px 6px;border-radius:4px;font-family:monospace;font-size:12px;color:#a99bf9;">x-goog-api-key</code>), never in the URL, reducing exposure in logs or proxies</li>
+            <li>Screenshots are saved with a random filename and automatically deleted after recognition — never stored permanently</li>
             <li>Google's handling of this data is governed by their own privacy policy</li>
             <li>See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="email-link">Google's Privacy Policy</a> for details</li>
             <li>The API Key is managed entirely by you; MathSnap does not access your Google account</li>
@@ -220,7 +245,7 @@
       <div class="privacy-section" id="permissions">
         <h2 data-i18n="s4-h2">系統權限說明</h2>
         <div class="lang-zh">
-          <p>MathSnap 需要以下 macOS 系統權限才能正常運作：</p>
+          <p>MathSnap 需要以下 macOS 系統權限才能正常運作。你可以在 App 設定頁查看每項權限的目前狀態，並直接跳轉到系統設定調整。</p>
           <div class="perm-table-wrap">
             <table class="perm-table">
               <thead><tr><th>權限</th><th>用途</th><th>是否傳送至外部</th></tr></thead>
@@ -232,40 +257,152 @@
                 </tr>
                 <tr>
                   <td>螢幕錄製</td>
-                  <td>截取你框選區域的螢幕畫面，用於公式辨識</td>
+                  <td>截取你框選區域的螢幕畫面，用於公式辨識。截圖以隨機檔名暫存，辨識後立即刪除</td>
                   <td>截圖傳送至 Google Gemini API</td>
+                </tr>
+                <tr>
+                  <td>通知</td>
+                  <td>辨識完成時顯示通知（可在設定中關閉通知內的 LaTeX 預覽）</td>
+                  <td>否</td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <p style="margin-top:16px;">你可以隨時在「系統設定 → 隱私權與安全性」中撤銷上述權限。</p>
+          <p style="margin-top:16px;">你可以隨時在「系統設定 → 隱私權與安全性」中撤銷上述權限，或直接從 MathSnap 設定頁跳轉前往。</p>
         </div>
         <div class="lang-en" hidden>
-          <p>MathSnap requires the following macOS system permissions to function:</p>
+          <p>MathSnap requires the following macOS system permissions to function. You can view the current status of each permission on the Settings page and jump directly to System Settings to adjust them.</p>
           <div class="perm-table-wrap">
             <table class="perm-table">
               <thead><tr><th>Permission</th><th>Purpose</th><th>Data sent externally?</th></tr></thead>
               <tbody>
                 <tr>
                   <td>Accessibility</td>
-                  <td>Listens for the global shortcut (⌘⇧1) so you can trigger capture from any app</td>
+                  <td>Listens for the global shortcut (⌘⇧L) so you can trigger capture from any app</td>
                   <td>No</td>
                 </tr>
                 <tr>
                   <td>Screen Recording</td>
-                  <td>Captures the screen region you select for formula recognition</td>
+                  <td>Captures the screen region you select for formula recognition. Saved with a random filename and deleted immediately after recognition</td>
                   <td>Screenshot sent to Google Gemini API</td>
+                </tr>
+                <tr>
+                  <td>Notifications</td>
+                  <td>Shows a notification when recognition is complete (LaTeX preview in notifications can be disabled in Settings)</td>
+                  <td>No</td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <p style="margin-top:16px;">You can revoke these permissions at any time in System Settings → Privacy &amp; Security.</p>
+          <p style="margin-top:16px;">You can revoke these permissions at any time in System Settings → Privacy &amp; Security, or jump there directly from MathSnap's Settings page.</p>
+        </div>
+      </div>
+
+      <!-- 安全性設計 / Security Design -->
+      <div class="privacy-section" id="security-design">
+        <h2 data-i18n="s5-h2">安全性設計</h2>
+        <div class="lang-zh">
+          <div class="sec-badge">🔒 Security by Design</div>
+          <div class="sec-list">
+            <div class="sec-item">
+              <div class="sec-item-title">API Key 儲存：macOS Keychain</div>
+              <div class="sec-item-desc">
+                Gemini API Key 加密儲存於 macOS Keychain，而非一般的 UserDefaults 或設定檔。若你曾使用舊版，啟動時會自動將舊值搬移至 Keychain 並清除原始紀錄。App 不會將 API Key 寫入專案檔、設定檔或任何雲端同步文件中。
+              </div>
+            </div>
+            <div class="sec-item">
+              <div class="sec-item-title">API Key 傳輸：HTTPS Header，不放 URL</div>
+              <div class="sec-item-desc">
+                呼叫 Gemini API 時，API Key 透過 HTTPS request header <code>x-goog-api-key</code> 傳遞，不會出現在 URL query string 中。這能有效降低 Key 被記錄在 proxy log、瀏覽器歷史、診斷資訊或錯誤訊息中的風險。
+              </div>
+            </div>
+            <div class="sec-item">
+              <div class="sec-item-title">截圖暫存：隨機檔名 + 辨識後自動刪除</div>
+              <div class="sec-item-desc">
+                使用者框選的截圖會以隨機產生的檔名暫存，辨識流程結束後立即刪除。App 本身不永久保存任何截圖內容。
+              </div>
+            </div>
+            <div class="sec-item">
+              <div class="sec-item-title">錯誤訊息保護：不暴露原始 API 回應</div>
+              <div class="sec-item-desc">
+                API 錯誤發生時，使用者只會看到簡化後的提示（例如「API Key 無效」、「網路錯誤」），不會顯示 Gemini 的 raw response 內容。詳細的錯誤資訊僅在 Debug 模式下輸出，避免敏感技術資訊外洩。
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="lang-en" hidden>
+          <div class="sec-badge">🔒 Security by Design</div>
+          <div class="sec-list">
+            <div class="sec-item">
+              <div class="sec-item-title">API Key Storage: macOS Keychain</div>
+              <div class="sec-item-desc">
+                Your Gemini API Key is encrypted and stored in macOS Keychain — not in UserDefaults or any config file. If you used an older version, the app automatically migrates your key to Keychain on launch and removes the old value. The key is never written to project files, config files, or cloud-synced documents.
+              </div>
+            </div>
+            <div class="sec-item">
+              <div class="sec-item-title">API Key Transmission: HTTPS Header, Not URL</div>
+              <div class="sec-item-desc">
+                When calling the Gemini API, the API Key is passed via the HTTPS request header <code>x-goog-api-key</code> — never in the URL query string. This prevents the key from appearing in proxy logs, browser history, diagnostic reports, or error messages.
+              </div>
+            </div>
+            <div class="sec-item">
+              <div class="sec-item-title">Screenshot Handling: Random Filename + Auto-Deleted</div>
+              <div class="sec-item-desc">
+                Screenshots are temporarily saved with a randomly generated filename and deleted immediately after the recognition process completes. The app never stores screenshot content permanently.
+              </div>
+            </div>
+            <div class="sec-item">
+              <div class="sec-item-title">Error Message Protection: No Raw API Responses</div>
+              <div class="sec-item-desc">
+                When an API error occurs, users only see simplified messages (e.g. "Invalid API Key", "Network error") — the raw Gemini response is never displayed. Detailed error output is only available in Debug mode, preventing sensitive technical information from being exposed.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 隱私控制設定 / Privacy Controls -->
+      <div class="privacy-section" id="privacy-controls">
+        <h2 data-i18n="s6-h2">隱私控制設定</h2>
+        <div class="lang-zh">
+          <p>MathSnap 提供多項隱私相關設定，讓你自行決定資料的可見範圍：</p>
+          <div class="sec-list">
+            <div class="sec-item">
+              <div class="sec-item-title">通知中的 LaTeX 預覽</div>
+              <div class="sec-item-desc">可在設定中關閉辨識完成通知內的 LaTeX 內容預覽，避免公式出現在通知中心或鎖定螢幕上。</div>
+            </div>
+            <div class="sec-item">
+              <div class="sec-item-title">選單列最近辨識結果</div>
+              <div class="sec-item-desc">可關閉選單列顯示最近 3 次辨識結果的功能。關閉後，App 不會在選單列保留任何辨識歷史，結果只會複製到剪貼板。</div>
+            </div>
+            <div class="sec-item">
+              <div class="sec-item-title">權限狀態一覽</div>
+              <div class="sec-item-desc">設定頁顯示輔助使用、螢幕錄製、通知三項權限的目前狀態，並提供一鍵跳轉至 macOS 系統設定的入口。</div>
+            </div>
+          </div>
+        </div>
+        <div class="lang-en" hidden>
+          <p>MathSnap offers several privacy settings, giving you control over what is visible and retained:</p>
+          <div class="sec-list">
+            <div class="sec-item">
+              <div class="sec-item-title">LaTeX Preview in Notifications</div>
+              <div class="sec-item-desc">You can disable the LaTeX content preview in recognition notifications, preventing formula content from appearing in Notification Center or on your lock screen.</div>
+            </div>
+            <div class="sec-item">
+              <div class="sec-item-title">Recent Results in Menu Bar</div>
+              <div class="sec-item-desc">You can disable the last 3 recognition results shown in the menu bar. When disabled, the app retains no recognition history — results are only copied to the clipboard.</div>
+            </div>
+            <div class="sec-item">
+              <div class="sec-item-title">Permission Status at a Glance</div>
+              <div class="sec-item-desc">The Settings page shows the current status of Accessibility, Screen Recording, and Notifications permissions, with a one-tap shortcut to open the relevant macOS System Settings pane.</div>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- 資料安全 / Security -->
       <div class="privacy-section" id="security">
-        <h2 data-i18n="s5-h2">資料安全</h2>
+        <h2 data-i18n="s7-h2">資料安全</h2>
         <div class="lang-zh">
           <p>由於 MathSnap 不收集任何資料，也不運營任何伺服器，因此不存在資料外洩或伺服器端資料被盜的風險。</p>
           <p>你的 Gemini API Key 使用 macOS Keychain 機制加密儲存，這是 Apple 提供的最高等級本地安全儲存方式，其他應用程式無法讀取。</p>
@@ -278,7 +415,7 @@
 
       <!-- 政策變更 / Changes -->
       <div class="privacy-section" id="changes">
-        <h2 data-i18n="s6-h2">政策變更</h2>
+        <h2 data-i18n="s8-h2">政策變更</h2>
         <div class="lang-zh">
           <p>若本隱私權政策有重大變更，我們會在新版本的應用程式中告知使用者，並更新本頁面頂端的「最後更新」日期。</p>
           <p>繼續使用本應用程式即表示你同意最新版本的隱私權政策。</p>
@@ -291,7 +428,7 @@
 
       <!-- 聯絡 / Contact -->
       <div class="privacy-section" id="contact">
-        <h2 data-i18n="s7-h2">聯絡我們</h2>
+        <h2 data-i18n="s9-h2">聯絡我們</h2>
         <div class="lang-zh">
           <p>若你對本隱私權政策有任何疑問，歡迎透過電子郵件聯絡我們：</p>
           <p><a href="mailto:tobywu041014@gmail.com" class="email-link">✉ 寄送郵件</a></p>
@@ -324,13 +461,16 @@
         'nav-support': 'Support', 'nav-privacy': 'Privacy', 'nav-download': 'Download',
         'page-label':  '法律文件',
         'page-h1':     '隱私權政策',
-        'page-sub':    '最後更新：2026 年 5 月 16 日',
+        'page-sub':    '最後更新：2026 年 5 月 17 日',
         'toc-title':   '目錄',
         'toc-1': '概述', 'toc-2': '我們收集哪些資料', 'toc-3': '第三方服務',
-        'toc-4': '系統權限說明', 'toc-5': '資料安全', 'toc-6': '政策變更', 'toc-7': '聯絡我們',
+        'toc-4': '系統權限說明', 'toc-5': '安全性設計', 'toc-6': '隱私控制設定',
+        'toc-7': '資料安全', 'toc-8': '政策變更', 'toc-9': '聯絡我們',
         's1-h2': '概述', 's2-h2': '我們收集哪些資料',
         's3-h2': '第三方服務：Google Gemini API',
-        's4-h2': '系統權限說明', 's5-h2': '資料安全', 's6-h2': '政策變更', 's7-h2': '聯絡我們',
+        's4-h2': '系統權限說明', 's5-h2': '安全性設計',
+        's6-h2': '隱私控制設定', 's7-h2': '資料安全',
+        's8-h2': '政策變更', 's9-h2': '聯絡我們',
         'footer-privacy': 'Privacy Policy',
       },
       en: {
@@ -339,13 +479,16 @@
         'nav-support': 'Support', 'nav-privacy': 'Privacy', 'nav-download': 'Download',
         'page-label':  'Legal',
         'page-h1':     'Privacy Policy',
-        'page-sub':    'Last updated: May 16, 2026',
+        'page-sub':    'Last updated: May 17, 2026',
         'toc-title':   'Contents',
         'toc-1': 'Overview', 'toc-2': 'Data We Collect', 'toc-3': 'Third-Party Services',
-        'toc-4': 'System Permissions', 'toc-5': 'Data Security', 'toc-6': 'Policy Changes', 'toc-7': 'Contact',
+        'toc-4': 'System Permissions', 'toc-5': 'Security Design', 'toc-6': 'Privacy Controls',
+        'toc-7': 'Data Security', 'toc-8': 'Policy Changes', 'toc-9': 'Contact',
         's1-h2': 'Overview', 's2-h2': 'Data We Collect',
         's3-h2': 'Third-Party Services: Google Gemini API',
-        's4-h2': 'System Permissions', 's5-h2': 'Data Security', 's6-h2': 'Policy Changes', 's7-h2': 'Contact',
+        's4-h2': 'System Permissions', 's5-h2': 'Security Design',
+        's6-h2': 'Privacy Controls', 's7-h2': 'Data Security',
+        's8-h2': 'Policy Changes', 's9-h2': 'Contact',
         'footer-privacy': 'Privacy Policy',
       }
     };
