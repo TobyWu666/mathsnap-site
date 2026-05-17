@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="MathSnap 支援中心 — 常見問題與使用說明，幫助你快速上手。" />
+  <meta property="og:title" content="MathSnap — 支援中心" />
+  <meta property="og:type" content="website" />
+  <title>支援中心 — MathSnap</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📐</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0a; --bg-card: #111111; --border: #222222;
+      --text: #f0f0f0; --muted: #888888;
+      --accent: #7c6af7; --accent-h: #6a58e5; --accent-2: #a99bf9;
+      --success: #4ade80; --r: 12px;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+
+    @keyframes fade-up { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:none; } }
+
+    .reveal { opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity:1; transform:none; }
+    .reveal-d1 { transition-delay:.1s; } .reveal-d2 { transition-delay:.2s; } .reveal-d3 { transition-delay:.3s; }
+
+    /* Navbar */
+    nav {
+      position:sticky; top:0; z-index:200;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:0 48px; height:64px;
+      background:rgba(10,10,10,.82);
+      backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav-logo { font-weight:700; font-size:24px; letter-spacing:-.02em; display:flex; align-items:center; gap:14px; }
+    .nav-logo img { height:48px; border-radius:12px; }
+    .nav-links { display:flex; align-items:center; gap:8px; }
+    .nav-links a { padding:8px 16px; border-radius:8px; font-size:14px; color:var(--muted); transition:color .2s; }
+    .nav-links a:hover { color:var(--text); }
+    .nav-links .btn-dl { background:var(--accent); color:#fff; font-weight:700; padding:8px 20px; border-radius:8px; transition:background .2s, transform .2s; }
+    .nav-links .btn-dl:hover { background:var(--accent-h); transform:translateY(-1px); }
+    .lang-btn { background:transparent; border:1px solid var(--border); color:var(--muted); padding:5px 11px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer; font-family:'Inter',sans-serif; letter-spacing:.04em; transition:border-color .2s, color .2s; }
+    .lang-btn:hover { border-color:#444; color:var(--text); }
+
+    /* Page Header */
+    .page-header { padding:80px 48px 64px; max-width:900px; margin:0 auto; }
+    .header-title-wrap { display:flex; align-items:center; gap:24px; margin-bottom:16px; }
+    .header-logo { width:56px; height:56px; border-radius:14px; box-shadow:0 12px 24px rgba(0,0,0,0.3); flex-shrink:0; }
+    .page-header .label { font-size:12px; font-weight:700; color:var(--accent); letter-spacing:.1em; text-transform:uppercase; margin-bottom:12px; }
+    .page-header h1 { font-size:clamp(32px,5vw,52px); font-weight:700; letter-spacing:-.03em; margin-bottom:0; }
+    .page-header p { color:var(--muted); font-size:18px; }
+
+    /* Content */
+    .content-wrapper { max-width:900px; margin:0 auto; padding:0 48px 96px; }
+
+    /* Quick Start */
+    .quick-start { margin-bottom:72px; }
+    .quick-start h2 { font-size:24px; font-weight:700; margin-bottom:28px; }
+    .steps-list { display:flex; flex-direction:column; gap:16px; }
+    .step-card { display:flex; gap:20px; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--r); padding:24px 28px; align-items:flex-start; transition:border-color .2s; }
+    .step-card:hover { border-color:#333; }
+    .step-badge { flex-shrink:0; width:36px; height:36px; background:rgba(124,106,247,.12); border:1px solid rgba(124,106,247,.3); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; color:var(--accent); }
+    .step-card-body h3 { font-size:16px; font-weight:700; margin-bottom:6px; }
+    .step-card-body p { color:var(--muted); font-size:14px; line-height:1.6; }
+    .step-card-body a { color:var(--accent); text-decoration:underline; text-underline-offset:3px; }
+    .step-card-body code { background:#1a1a1a; padding:2px 7px; border-radius:5px; font-size:13px; font-family:'JetBrains Mono',monospace; color:var(--text); }
+
+    hr.divider { border:none; border-top:1px solid var(--border); margin:64px 0; }
+
+    /* FAQ Accordion */
+    .faq-section h2 { font-size:24px; font-weight:700; margin-bottom:28px; }
+    .accordion { display:flex; flex-direction:column; border:1px solid var(--border); border-radius:var(--r); overflow:hidden; }
+    .accordion-item { border-bottom:1px solid var(--border); }
+    .accordion-item:last-child { border-bottom:none; }
+    .accordion-trigger { width:100%; background:var(--bg-card); border:none; cursor:pointer; display:flex; align-items:center; justify-content:space-between; padding:20px 24px; text-align:left; color:var(--text); font-family:'Inter',sans-serif; font-size:15px; font-weight:700; transition:background .2s; gap:16px; }
+    .accordion-trigger:hover { background:#161616; }
+    .accordion-icon { flex-shrink:0; width:20px; height:20px; border-radius:50%; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:12px; color:var(--muted); transition:transform .2s, border-color .2s, color .2s; }
+    .accordion-item.open .accordion-icon { transform:rotate(45deg); border-color:var(--accent); color:var(--accent); }
+    .accordion-content { display:none; padding:0 24px 20px; background:var(--bg-card); color:var(--muted); font-size:14px; line-height:1.7; }
+    .accordion-item.open .accordion-content { display:block; }
+    .accordion-content code { background:#1a1a1a; padding:2px 7px; border-radius:5px; font-size:13px; font-family:'JetBrains Mono',monospace; color:var(--text); }
+    .accordion-content a { color:var(--accent); text-decoration:underline; text-underline-offset:3px; }
+    .accordion-content ul { padding-left:20px; display:flex; flex-direction:column; gap:4px; margin-top:8px; }
+    .accordion-content strong { color:var(--text); }
+
+    /* Contact */
+    .contact-section { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--r); padding:48px; text-align:center; }
+    .contact-section h2 { font-size:24px; font-weight:700; margin-bottom:10px; }
+    .contact-section p { color:var(--muted); margin-bottom:28px; }
+    .btn-email { display:inline-flex; align-items:center; gap:8px; background:var(--accent); color:#fff; font-weight:700; font-size:15px; padding:12px 28px; border-radius:10px; transition:background .2s, transform .2s; }
+    .btn-email:hover { background:var(--accent-h); transform:translateY(-1px); }
+
+    /* Footer */
+    footer { border-top:1px solid var(--border); padding:32px 48px; display:flex; align-items:center; justify-content:space-between; color:var(--muted); font-size:14px; }
+    .footer-links { display:flex; gap:24px; }
+    .footer-links a { color:var(--muted); transition:color .2s; }
+    .footer-links a:hover { color:var(--text); }
+
+    /* RWD */
+    @media (max-width:768px) {
+      nav { padding:0 20px; }
+      .nav-links a:not(.btn-dl) { display:none; }
+      .page-header { padding:48px 20px 40px; }
+      .content-wrapper { padding:0 20px 64px; }
+      .contact-section { padding:32px 24px; }
+      footer { flex-direction:column; gap:16px; text-align:center; padding:24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="./index.html" class="nav-logo">
+      <img src="./logo.png" alt="MathSnap" />
+      <span>MathSnap</span>
+    </a>
+    <div class="nav-links">
+      <a href="./support.html" data-i18n="nav-support">Support</a>
+      <a href="./privacy.html" data-i18n="nav-privacy">Privacy</a>
+      <button class="lang-btn" id="lang-btn" onclick="toggleLang()">EN</button>
+      <a href="./index.html#download" class="btn-dl" data-i18n="nav-download">Download</a>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="label" data-i18n="page-label">幫助文件</div>
+    <div class="header-title-wrap">
+      <img src="./title-logo.png" alt="MathSnap Logo" class="header-logo" />
+      <h1 data-i18n="page-h1">支援中心</h1>
+    </div>
+    <p data-i18n="page-sub">常見問題與使用說明</p>
+  </div>
+
+  <div class="content-wrapper">
+
+    <!-- Quick Start -->
+    <div class="quick-start">
+      <h2 class="reveal" data-i18n="qs-title">快速開始</h2>
+      <div class="steps-list">
+
+        <!-- 步驟 1 -->
+        <div class="step-card reveal reveal-d1">
+          <div class="step-badge">1</div>
+          <div class="step-card-body">
+            <h3 data-i18n="qs1-h3">取得 Gemini API Key</h3>
+            <p data-i18n-html="qs1-p">前往 <a href="https://aistudio.google.com" target="_blank" rel="noopener">aistudio.google.com</a>，用 Google 帳號登入後點擊「Get API Key」，即可免費申請。每日提供 250 次免費配額，隔天自動重置。</p>
+          </div>
+        </div>
+
+        <!-- 步驟 2 -->
+        <div class="step-card reveal reveal-d2">
+          <div class="step-badge">2</div>
+          <div class="step-card-body">
+            <h3 data-i18n="qs2-h3">在 MathSnap 設定中填入 API Key</h3>
+            <p data-i18n="qs2-p">點擊系統列的 📐 圖示，選擇「設定」，將剛才取得的 API Key 貼入欄位並儲存。Key 僅儲存在你的裝置本地，不會上傳至任何伺服器。</p>
+          </div>
+        </div>
+
+        <!-- 步驟 3 -->
+        <div class="step-card reveal reveal-d3">
+          <div class="step-badge">3</div>
+          <div class="step-card-body">
+            <h3 data-i18n="qs3-h3">開啟輔助使用權限</h3>
+            <p data-i18n-html="qs3-p">MathSnap 需要輔助使用權限才能監聽全域快捷鍵。<br/>路徑：<code>系統設定</code> → <code>隱私權與安全性</code> → <code>輔助使用</code> → 開啟 MathSnap 的開關</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- FAQ -->
+    <div class="faq-section reveal">
+      <h2 data-i18n="faq-title">常見問題</h2>
+      <div class="accordion" id="accordion">
+
+        <!-- Q1 -->
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false">
+            <span data-i18n="q1">快捷鍵沒有反應怎麼辦？</span>
+            <span class="accordion-icon">+</span>
+          </button>
+          <div class="accordion-content">
+            <!-- 中文 -->
+            <div class="lang-zh">
+              <p>需要開啟輔助使用權限，MathSnap 才能監聽全域快捷鍵。<br/>
+              路徑：<code>系統設定</code> → <code>隱私權與安全性</code> → <code>輔助使用</code> → 確認 MathSnap 已開啟</p>
+            </div>
+            <!-- English -->
+            <div class="lang-en" hidden>
+              <p>MathSnap needs Accessibility permission to listen for the global shortcut.<br/>
+              Go to: <code>System Settings</code> → <code>Privacy & Security</code> → <code>Accessibility</code> → enable MathSnap</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false">
+            <span data-i18n="q2">顯示「辨識失敗」怎麼辦？</span>
+            <span class="accordion-icon">+</span>
+          </button>
+          <div class="accordion-content">
+            <div class="lang-zh">
+              <p>可能原因：</p>
+              <ul>
+                <li><strong>API Key 錯誤</strong> — 進入設定確認 Key 是否貼入完整</li>
+                <li><strong>網路問題</strong> — 確認裝置能連線至 Google 服務</li>
+                <li><strong>免費額度用完</strong> — 每日 250 次，隔天重置後即可繼續使用</li>
+              </ul>
+            </div>
+            <div class="lang-en" hidden>
+              <p>Possible causes:</p>
+              <ul>
+                <li><strong>Invalid API Key</strong> — Go to Settings and verify the key is pasted correctly</li>
+                <li><strong>Network issue</strong> — Make sure your device can reach Google services</li>
+                <li><strong>Daily quota exceeded</strong> — Free tier is 250 requests/day; resets at midnight</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false">
+            <span data-i18n="q3">辨識結果不準確？</span>
+            <span class="accordion-icon">+</span>
+          </button>
+          <div class="accordion-content">
+            <div class="lang-zh">
+              <p>以下方式可提升準確率：</p>
+              <ul>
+                <li>截圖範圍盡量貼近公式，減少多餘空白</li>
+                <li>確保螢幕顯示清晰，縮放比例正常</li>
+                <li>印刷體（電子書、PDF）比手寫準確率高</li>
+              </ul>
+            </div>
+            <div class="lang-en" hidden>
+              <p>Tips to improve accuracy:</p>
+              <ul>
+                <li>Crop tightly around the formula to minimize surrounding whitespace</li>
+                <li>Ensure the screen is sharp and at normal zoom level</li>
+                <li>Printed text (eBooks, PDFs) gives better results than handwriting</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false">
+            <span data-i18n="q4">Gemini API Key 怎麼申請？</span>
+            <span class="accordion-icon">+</span>
+          </button>
+          <div class="accordion-content">
+            <div class="lang-zh">
+              <p>前往 <a href="https://aistudio.google.com" target="_blank" rel="noopener">aistudio.google.com</a>，用 Google 帳號登入，點擊「Get API Key」，選擇建立新的 Key 即可完成申請。整個流程約 1 分鐘，完全免費。</p>
+            </div>
+            <div class="lang-en" hidden>
+              <p>Visit <a href="https://aistudio.google.com" target="_blank" rel="noopener">aistudio.google.com</a>, sign in with your Google account, click "Get API Key", then create a new key. The whole process takes about a minute and is completely free.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false">
+            <span data-i18n="q5">支援哪些 macOS 版本？</span>
+            <span class="accordion-icon">+</span>
+          </button>
+          <div class="accordion-content">
+            <div class="lang-zh">
+              <p>需要 macOS 13 Ventura 以上，Apple Silicon（M 系列）與 Intel 處理器均支援。</p>
+            </div>
+            <div class="lang-en" hidden>
+              <p>Requires macOS 13 Ventura or later. Both Apple Silicon (M-series) and Intel processors are supported.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false">
+            <span data-i18n="q6">App 沒出現在系統列？</span>
+            <span class="accordion-icon">+</span>
+          </button>
+          <div class="accordion-content">
+            <div class="lang-zh">
+              <p>請確認 MathSnap 已執行（可在 Finder → 應用程式 中雙擊開啟）。若系統列圖示太多被隱藏，可嘗試按住 <code>Cmd</code> 拖移圖示排列，或重新啟動 App。</p>
+            </div>
+            <div class="lang-en" hidden>
+              <p>Make sure MathSnap is running (double-click it in Finder → Applications). If the menu bar is full, try holding <code>Cmd</code> and dragging icons to rearrange, or restart the app.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- Contact -->
+    <div class="contact-section reveal">
+      <h2 data-i18n="contact-h2">還有其他問題？</h2>
+      <p data-i18n="contact-p">找不到答案？直接寫信給我，我會盡快回覆。</p>
+      <a href="mailto:tobywu041014@gmail.com" class="btn-email" data-i18n="contact-btn">✉ 聯絡我們</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>© 2026 MathSnap · <span style="color:var(--muted);font-size:13px;" data-i18n="footer-dev">Developed by tobywu</span></span>
+    <div class="footer-links">
+      <a href="./support.html" data-i18n="nav-support">Support</a>
+      <a href="./privacy.html" data-i18n="footer-privacy">Privacy Policy</a>
+    </div>
+  </footer>
+
+  <script>
+    /* ══ i18n ══ */
+    var T = {
+      zh: {
+        'page-title':  '支援中心 — MathSnap',
+        'meta-desc':   'MathSnap 支援中心 — 常見問題與使用說明，幫助你快速上手。',
+        'nav-support': 'Support', 'nav-privacy': 'Privacy', 'nav-download': 'Download',
+        'page-label':  '幫助文件',
+        'page-h1':     '支援中心',
+        'page-sub':    '常見問題與使用說明',
+        'qs-title':    '快速開始',
+        'qs1-h3':      '取得 Gemini API Key',
+        'qs1-p':       '前往 <a href="https://aistudio.google.com" target="_blank" rel="noopener">aistudio.google.com</a>，用 Google 帳號登入後點擊「Get API Key」，即可免費申請。每日提供 250 次免費配額，隔天自動重置。',
+        'qs2-h3':      '在 MathSnap 設定中填入 API Key',
+        'qs2-p':       '點擊系統列的 📐 圖示，選擇「設定」，將剛才取得的 API Key 貼入欄位並儲存。Key 僅儲存在你的裝置本地，不會上傳至任何伺服器。',
+        'qs3-h3':      '開啟輔助使用權限',
+        'qs3-p':       'MathSnap 需要輔助使用權限才能監聽全域快捷鍵。<br/>路徑：<code>系統設定</code> → <code>隱私權與安全性</code> → <code>輔助使用</code> → 開啟 MathSnap 的開關',
+        'faq-title':   '常見問題',
+        'q1': '快捷鍵沒有反應怎麼辦？',
+        'q2': '顯示「辨識失敗」怎麼辦？',
+        'q3': '辨識結果不準確？',
+        'q4': 'Gemini API Key 怎麼申請？',
+        'q5': '支援哪些 macOS 版本？',
+        'q6': 'App 沒出現在系統列？',
+        'contact-h2':  '還有其他問題？',
+        'contact-p':   '找不到答案？直接寫信給我，我會盡快回覆。',
+        'contact-btn': '✉ 聯絡我們',
+        'footer-privacy': 'Privacy Policy',
+      },
+      en: {
+        'page-title':  'Support — MathSnap',
+        'meta-desc':   'MathSnap Support Center — FAQ and getting started guide.',
+        'nav-support': 'Support', 'nav-privacy': 'Privacy', 'nav-download': 'Download',
+        'page-label':  'Help',
+        'page-h1':     'Support Center',
+        'page-sub':    'FAQ & Getting Started',
+        'qs-title':    'Quick Start',
+        'qs1-h3':      'Get a Gemini API Key',
+        'qs1-p':       'Visit <a href="https://aistudio.google.com" target="_blank" rel="noopener">aistudio.google.com</a>, sign in with Google, and click "Get API Key". It\'s free, with 250 requests per day that reset daily.',
+        'qs2-h3':      'Enter Your API Key in MathSnap',
+        'qs2-p':       'Click the 📐 icon in your menu bar, open Settings, paste your API Key and save. The key is stored locally on your device only and never uploaded anywhere.',
+        'qs3-h3':      'Enable Accessibility Permission',
+        'qs3-p':       'MathSnap needs Accessibility permission to listen for the global shortcut.<br/>Go to: <code>System Settings</code> → <code>Privacy & Security</code> → <code>Accessibility</code> → enable MathSnap',
+        'faq-title':   'Frequently Asked Questions',
+        'q1': 'The shortcut key isn\'t working — what should I do?',
+        'q2': 'I\'m seeing a "Recognition Failed" error — how do I fix it?',
+        'q3': 'The recognition output is inaccurate?',
+        'q4': 'How do I get a Gemini API Key?',
+        'q5': 'Which macOS versions are supported?',
+        'q6': 'The app doesn\'t appear in the menu bar?',
+        'contact-h2':  'Still have questions?',
+        'contact-p':   'Can\'t find the answer? Send me an email and I\'ll get back to you.',
+        'contact-btn': '✉ Contact Us',
+        'footer-privacy': 'Privacy Policy',
+      }
+    };
+
+    function detectLang() {
+      var saved = localStorage.getItem('ms-lang');
+      if (saved === 'zh' || saved === 'en') return saved;
+      return (navigator.language || 'en').toLowerCase().startsWith('zh') ? 'zh' : 'en';
+    }
+
+    function applyLang(lang) {
+      var t = T[lang];
+      document.documentElement.setAttribute('data-lang', lang);
+      document.documentElement.lang = lang === 'zh' ? 'zh-TW' : 'en';
+      document.title = t['page-title'];
+      var m = document.querySelector('meta[name="description"]');
+      if (m) m.content = t['meta-desc'];
+      document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        var v = t[el.getAttribute('data-i18n')];
+        if (v !== undefined) el.textContent = v;
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+        var v = t[el.getAttribute('data-i18n-html')];
+        if (v !== undefined) el.innerHTML = v;
+      });
+      /* 切換 lang-zh / lang-en 區塊 */
+      document.querySelectorAll('.lang-zh').forEach(function(el) { el.hidden = (lang !== 'zh'); });
+      document.querySelectorAll('.lang-en').forEach(function(el) { el.hidden = (lang !== 'en'); });
+      var btn = document.getElementById('lang-btn');
+      if (btn) btn.textContent = lang === 'zh' ? 'EN' : '中文';
+    }
+
+    function toggleLang() {
+      var cur = document.documentElement.getAttribute('data-lang') || detectLang();
+      var next = cur === 'zh' ? 'en' : 'zh';
+      localStorage.setItem('ms-lang', next);
+      applyLang(next);
+    }
+
+    applyLang(detectLang());
+
+    /* ══ Scroll Reveal ══ */
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(function(el) { io.observe(el); });
+
+    /* ══ Accordion ══ */
+    document.querySelectorAll('.accordion-trigger').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var item = this.closest('.accordion-item');
+        var isOpen = item.classList.contains('open');
+        document.querySelectorAll('.accordion-item.open').forEach(function(el) {
+          el.classList.remove('open');
+          el.querySelector('.accordion-trigger').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) { item.classList.add('open'); this.setAttribute('aria-expanded', 'true'); }
+      });
+    });
+  </script>
+
+</body>
+</html>

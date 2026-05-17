@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="MathSnap 隱私權政策 — 我們不收集任何個人資料，API Key 僅儲存在你的裝置本地。" />
+  <meta property="og:title" content="MathSnap — 隱私權政策" />
+  <meta property="og:type" content="website" />
+  <title>隱私權政策 — MathSnap</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📐</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0a; --bg-card: #111111; --border: #222222;
+      --text: #f0f0f0; --muted: #888888;
+      --accent: #7c6af7; --accent-h: #6a58e5; --r: 12px;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+
+    /* Navbar */
+    nav {
+      position: sticky; top: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 64px;
+      background: rgba(10,10,10,.82);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-weight: 700; font-size: 24px; letter-spacing: -.02em; display: flex; align-items: center; gap: 14px; }
+    .nav-logo img { height: 48px; border-radius: 12px; }
+    .nav-links { display: flex; align-items: center; gap: 8px; }
+    .nav-links a { padding: 8px 16px; border-radius: 8px; font-size: 14px; color: var(--muted); transition: color .2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links .btn-dl { background: var(--accent); color: #fff; font-weight: 700; padding: 8px 20px; border-radius: 8px; transition: background .2s, transform .2s; }
+    .nav-links .btn-dl:hover { background: var(--accent-h); transform: translateY(-1px); }
+    .lang-btn { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: 5px 11px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; letter-spacing: .04em; transition: border-color .2s, color .2s; }
+    .lang-btn:hover { border-color: #444; color: var(--text); }
+
+    /* Page Header */
+    .page-header { padding: 80px 48px 64px; max-width: 1100px; margin: 0 auto; }
+    .header-title-wrap { display: flex; align-items: center; gap: 24px; margin-bottom: 16px; }
+    .header-logo { width: 56px; height: 56px; border-radius: 14px; box-shadow: 0 12px 24px rgba(0,0,0,0.3); flex-shrink: 0; }
+    .page-header .label { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 12px; }
+    .page-header h1 { font-size: clamp(32px, 5vw, 52px); font-weight: 700; letter-spacing: -.03em; margin-bottom: 0; }
+    .page-header p { color: var(--muted); font-size: 16px; }
+
+    /* Two-column layout */
+    .privacy-layout { max-width: 1100px; margin: 0 auto; padding: 0 48px 96px; display: grid; grid-template-columns: 220px 1fr; gap: 64px; align-items: start; }
+
+    /* TOC */
+    .toc { position: sticky; top: 88px; }
+    .toc-title { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 16px; }
+    .toc-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+    .toc-list a { display: block; padding: 6px 10px; border-radius: 6px; font-size: 13px; color: var(--muted); transition: color .2s, background .2s; border-left: 2px solid transparent; }
+    .toc-list a:hover { color: var(--text); background: rgba(255,255,255,.04); }
+    .toc-list a.active { color: var(--accent); border-left-color: var(--accent); }
+
+    /* Content */
+    .privacy-content { min-width: 0; }
+    .privacy-section { margin-bottom: 56px; scroll-margin-top: 88px; }
+    .privacy-section h2 { font-size: 22px; font-weight: 700; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+    .privacy-section p { color: var(--muted); font-size: 15px; line-height: 1.75; margin-bottom: 16px; }
+    .privacy-section p:last-child { margin-bottom: 0; }
+    .privacy-section ul, .privacy-section ol { padding-left: 20px; color: var(--muted); font-size: 15px; line-height: 1.75; display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .privacy-section strong { color: var(--text); }
+
+    /* Table */
+    .perm-table-wrap { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; margin-top: 8px; }
+    .perm-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .perm-table th { text-align: left; padding: 10px 16px; background: #161616; color: var(--muted); font-weight: 700; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; border-bottom: 1px solid var(--border); }
+    .perm-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--muted); vertical-align: top; }
+    .perm-table tr:last-child td { border-bottom: none; }
+    .perm-table td:first-child { color: var(--text); font-weight: 700; white-space: nowrap; }
+
+    .email-link { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--border); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; color: var(--muted); font-size: 14px; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { color: var(--muted); transition: color .2s; }
+    .footer-links a:hover { color: var(--text); }
+
+    /* RWD */
+    @media (max-width: 900px) {
+      .privacy-layout { grid-template-columns: 1fr; gap: 0; padding: 0 20px 64px; }
+      .toc { display: none; }
+      .page-header { padding: 48px 20px 40px; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links a:not(.btn-dl) { display: none; }
+      footer { flex-direction: column; gap: 16px; text-align: center; padding: 24px 20px; }
+      .perm-table th:last-child, .perm-table td:last-child { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="./index.html" class="nav-logo">
+      <img src="./logo.png" alt="MathSnap" />
+      <span>MathSnap</span>
+    </a>
+    <div class="nav-links">
+      <a href="./support.html" data-i18n="nav-support">Support</a>
+      <a href="./privacy.html" data-i18n="nav-privacy">Privacy</a>
+      <button class="lang-btn" id="lang-btn" onclick="toggleLang()">EN</button>
+      <a href="./index.html#download" class="btn-dl" data-i18n="nav-download">Download</a>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="label" data-i18n="page-label">法律文件</div>
+    <div class="header-title-wrap">
+      <img src="./title-logo.png" alt="MathSnap Logo" class="header-logo" />
+      <h1 data-i18n="page-h1">隱私權政策</h1>
+    </div>
+    <p data-i18n="page-sub">最後更新：2026 年 5 月 16 日</p>
+  </div>
+
+  <div class="privacy-layout">
+
+    <!-- TOC (desktop only) -->
+    <aside class="toc" aria-label="目錄">
+      <div class="toc-title" data-i18n="toc-title">目錄</div>
+      <ul class="toc-list">
+        <li><a href="#overview"    data-i18n="toc-1">概述</a></li>
+        <li><a href="#data"        data-i18n="toc-2">我們收集哪些資料</a></li>
+        <li><a href="#third-party" data-i18n="toc-3">第三方服務</a></li>
+        <li><a href="#permissions" data-i18n="toc-4">系統權限說明</a></li>
+        <li><a href="#security"    data-i18n="toc-5">資料安全</a></li>
+        <li><a href="#changes"     data-i18n="toc-6">政策變更</a></li>
+        <li><a href="#contact"     data-i18n="toc-7">聯絡我們</a></li>
+      </ul>
+    </aside>
+
+    <main class="privacy-content">
+
+      <!-- 概述 / Overview -->
+      <div class="privacy-section" id="overview">
+        <h2 data-i18n="s1-h2">概述</h2>
+        <div class="lang-zh">
+          <p>MathSnap（以下簡稱「本應用程式」）是一款執行於你個人 Mac 電腦上的工具程式。我們非常重視你的隱私，並以「最小資料原則」設計本應用程式——我們<strong>不運營任何伺服器</strong>，不收集、不儲存、不傳輸任何個人資料。</p>
+          <p>本政策說明本應用程式如何運作，以及你的資料在何處流動。</p>
+        </div>
+        <div class="lang-en" hidden>
+          <p>MathSnap is a utility application that runs entirely on your personal Mac. We take your privacy seriously and designed this app on a "minimal data" principle — we <strong>operate no servers</strong> and collect, store, or transmit no personal data whatsoever.</p>
+          <p>This policy explains how the app works and where your data goes.</p>
+        </div>
+      </div>
+
+      <!-- 收集資料 / Data Collection -->
+      <div class="privacy-section" id="data">
+        <h2 data-i18n="s2-h2">我們收集哪些資料</h2>
+        <div class="lang-zh">
+          <p><strong>我們不收集任何個人資料。</strong></p>
+          <p>本應用程式不會：</p>
+          <ul>
+            <li>追蹤你的使用行為或統計資料</li>
+            <li>收集裝置識別碼、IP 位址或位置資訊</li>
+            <li>上傳截圖至我們的伺服器（因為我們沒有伺服器）</li>
+            <li>建立使用者帳號或個人檔案</li>
+          </ul>
+          <p><strong>本地儲存的資料</strong></p>
+          <p>以下資料儲存在你的裝置本地，僅供本應用程式使用：</p>
+          <ul>
+            <li><strong>Gemini API Key</strong>：加密儲存於 macOS Keychain，不會離開你的裝置</li>
+            <li><strong>應用程式偏好設定</strong>：快捷鍵設定等，儲存於本機 UserDefaults</li>
+          </ul>
+        </div>
+        <div class="lang-en" hidden>
+          <p><strong>We collect no personal data.</strong></p>
+          <p>The app does not:</p>
+          <ul>
+            <li>Track your usage behavior or analytics</li>
+            <li>Collect device identifiers, IP addresses, or location</li>
+            <li>Upload screenshots to our servers (we have none)</li>
+            <li>Create user accounts or profiles</li>
+          </ul>
+          <p><strong>Data stored locally</strong></p>
+          <p>The following data is stored only on your device for the app's use:</p>
+          <ul>
+            <li><strong>Gemini API Key</strong>: Encrypted in macOS Keychain and never leaves your device</li>
+            <li><strong>App preferences</strong>: Shortcut settings, etc., stored in local UserDefaults</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 第三方 / Third Party -->
+      <div class="privacy-section" id="third-party">
+        <h2 data-i18n="s3-h2">第三方服務：Google Gemini API</h2>
+        <div class="lang-zh">
+          <p>當你使用 MathSnap 辨識公式時，截圖圖像會直接從你的裝置傳送至 <strong>Google Gemini API</strong> 進行辨識。這是唯一的外部資料傳輸。</p>
+          <p>請注意：</p>
+          <ul>
+            <li>傳送的內容僅包含截圖圖像，不含任何個人識別資訊</li>
+            <li>Google 對此資料的處理方式依循其自身的隱私權政策</li>
+            <li>你可前往 <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="email-link">Google 隱私權政策</a> 查閱詳情</li>
+            <li>API Key 由你自行申請並管理，MathSnap 不持有或存取你的 Google 帳號</li>
+          </ul>
+        </div>
+        <div class="lang-en" hidden>
+          <p>When you use MathSnap to recognize a formula, the screenshot is sent directly from your device to the <strong>Google Gemini API</strong>. This is the only external data transfer.</p>
+          <p>Please note:</p>
+          <ul>
+            <li>Only the screenshot image is transmitted — no personal identifiers</li>
+            <li>Google's handling of this data is governed by their own privacy policy</li>
+            <li>See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="email-link">Google's Privacy Policy</a> for details</li>
+            <li>The API Key is managed entirely by you; MathSnap does not access your Google account</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 系統權限 / Permissions -->
+      <div class="privacy-section" id="permissions">
+        <h2 data-i18n="s4-h2">系統權限說明</h2>
+        <div class="lang-zh">
+          <p>MathSnap 需要以下 macOS 系統權限才能正常運作：</p>
+          <div class="perm-table-wrap">
+            <table class="perm-table">
+              <thead><tr><th>權限</th><th>用途</th><th>是否傳送至外部</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>輔助使用</td>
+                  <td>監聽全域快捷鍵（⌘⇧L），讓你在任何 App 中都能觸發截圖</td>
+                  <td>否</td>
+                </tr>
+                <tr>
+                  <td>螢幕錄製</td>
+                  <td>截取你框選區域的螢幕畫面，用於公式辨識</td>
+                  <td>截圖傳送至 Google Gemini API</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="margin-top:16px;">你可以隨時在「系統設定 → 隱私權與安全性」中撤銷上述權限。</p>
+        </div>
+        <div class="lang-en" hidden>
+          <p>MathSnap requires the following macOS system permissions to function:</p>
+          <div class="perm-table-wrap">
+            <table class="perm-table">
+              <thead><tr><th>Permission</th><th>Purpose</th><th>Data sent externally?</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>Accessibility</td>
+                  <td>Listens for the global shortcut (⌘⇧1) so you can trigger capture from any app</td>
+                  <td>No</td>
+                </tr>
+                <tr>
+                  <td>Screen Recording</td>
+                  <td>Captures the screen region you select for formula recognition</td>
+                  <td>Screenshot sent to Google Gemini API</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="margin-top:16px;">You can revoke these permissions at any time in System Settings → Privacy &amp; Security.</p>
+        </div>
+      </div>
+
+      <!-- 資料安全 / Security -->
+      <div class="privacy-section" id="security">
+        <h2 data-i18n="s5-h2">資料安全</h2>
+        <div class="lang-zh">
+          <p>由於 MathSnap 不收集任何資料，也不運營任何伺服器，因此不存在資料外洩或伺服器端資料被盜的風險。</p>
+          <p>你的 Gemini API Key 使用 macOS Keychain 機制加密儲存，這是 Apple 提供的最高等級本地安全儲存方式，其他應用程式無法讀取。</p>
+        </div>
+        <div class="lang-en" hidden>
+          <p>Because MathSnap collects no data and operates no servers, there is no risk of a server-side data breach.</p>
+          <p>Your Gemini API Key is encrypted and stored in macOS Keychain — Apple's highest-level local secure storage, inaccessible to other applications.</p>
+        </div>
+      </div>
+
+      <!-- 政策變更 / Changes -->
+      <div class="privacy-section" id="changes">
+        <h2 data-i18n="s6-h2">政策變更</h2>
+        <div class="lang-zh">
+          <p>若本隱私權政策有重大變更，我們會在新版本的應用程式中告知使用者，並更新本頁面頂端的「最後更新」日期。</p>
+          <p>繼續使用本應用程式即表示你同意最新版本的隱私權政策。</p>
+        </div>
+        <div class="lang-en" hidden>
+          <p>If we make significant changes to this policy, we will notify users within the app and update the "Last updated" date at the top of this page.</p>
+          <p>Continued use of the app constitutes acceptance of the updated policy.</p>
+        </div>
+      </div>
+
+      <!-- 聯絡 / Contact -->
+      <div class="privacy-section" id="contact">
+        <h2 data-i18n="s7-h2">聯絡我們</h2>
+        <div class="lang-zh">
+          <p>若你對本隱私權政策有任何疑問，歡迎透過電子郵件聯絡我們：</p>
+          <p><a href="mailto:tobywu041014@gmail.com" class="email-link">✉ 寄送郵件</a></p>
+          <p style="margin-top:16px;">我們通常會在 3 個工作天內回覆。</p>
+        </div>
+        <div class="lang-en" hidden>
+          <p>If you have any questions about this privacy policy, please reach out by email:</p>
+          <p><a href="mailto:tobywu041014@gmail.com" class="email-link">✉ Send an email</a></p>
+          <p style="margin-top:16px;">We typically respond within 3 business days.</p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <footer>
+    <span>© 2026 MathSnap · <span style="color:var(--muted);font-size:13px;" data-i18n="footer-dev">Developed by tobywu</span></span>
+    <div class="footer-links">
+      <a href="./support.html" data-i18n="nav-support">Support</a>
+      <a href="./privacy.html" data-i18n="footer-privacy">Privacy Policy</a>
+    </div>
+  </footer>
+
+  <script>
+    /* ══ i18n ══ */
+    var T = {
+      zh: {
+        'page-title':  '隱私權政策 — MathSnap',
+        'meta-desc':   'MathSnap 隱私權政策 — 我們不收集任何個人資料，API Key 僅儲存在你的裝置本地。',
+        'nav-support': 'Support', 'nav-privacy': 'Privacy', 'nav-download': 'Download',
+        'page-label':  '法律文件',
+        'page-h1':     '隱私權政策',
+        'page-sub':    '最後更新：2026 年 5 月 16 日',
+        'toc-title':   '目錄',
+        'toc-1': '概述', 'toc-2': '我們收集哪些資料', 'toc-3': '第三方服務',
+        'toc-4': '系統權限說明', 'toc-5': '資料安全', 'toc-6': '政策變更', 'toc-7': '聯絡我們',
+        's1-h2': '概述', 's2-h2': '我們收集哪些資料',
+        's3-h2': '第三方服務：Google Gemini API',
+        's4-h2': '系統權限說明', 's5-h2': '資料安全', 's6-h2': '政策變更', 's7-h2': '聯絡我們',
+        'footer-privacy': 'Privacy Policy',
+      },
+      en: {
+        'page-title':  'Privacy Policy — MathSnap',
+        'meta-desc':   'MathSnap Privacy Policy — We collect no personal data. Your API Key is stored only on your device.',
+        'nav-support': 'Support', 'nav-privacy': 'Privacy', 'nav-download': 'Download',
+        'page-label':  'Legal',
+        'page-h1':     'Privacy Policy',
+        'page-sub':    'Last updated: May 16, 2026',
+        'toc-title':   'Contents',
+        'toc-1': 'Overview', 'toc-2': 'Data We Collect', 'toc-3': 'Third-Party Services',
+        'toc-4': 'System Permissions', 'toc-5': 'Data Security', 'toc-6': 'Policy Changes', 'toc-7': 'Contact',
+        's1-h2': 'Overview', 's2-h2': 'Data We Collect',
+        's3-h2': 'Third-Party Services: Google Gemini API',
+        's4-h2': 'System Permissions', 's5-h2': 'Data Security', 's6-h2': 'Policy Changes', 's7-h2': 'Contact',
+        'footer-privacy': 'Privacy Policy',
+      }
+    };
+
+    function detectLang() {
+      var saved = localStorage.getItem('ms-lang');
+      if (saved === 'zh' || saved === 'en') return saved;
+      return (navigator.language || 'en').toLowerCase().startsWith('zh') ? 'zh' : 'en';
+    }
+
+    function applyLang(lang) {
+      var t = T[lang];
+      document.documentElement.setAttribute('data-lang', lang);
+      document.documentElement.lang = lang === 'zh' ? 'zh-TW' : 'en';
+      document.title = t['page-title'];
+      var m = document.querySelector('meta[name="description"]');
+      if (m) m.content = t['meta-desc'];
+      document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        var v = t[el.getAttribute('data-i18n')];
+        if (v !== undefined) el.textContent = v;
+      });
+      document.querySelectorAll('.lang-zh').forEach(function(el) { el.hidden = (lang !== 'zh'); });
+      document.querySelectorAll('.lang-en').forEach(function(el) { el.hidden = (lang !== 'en'); });
+      var btn = document.getElementById('lang-btn');
+      if (btn) btn.textContent = lang === 'zh' ? 'EN' : '中文';
+    }
+
+    function toggleLang() {
+      var cur = document.documentElement.getAttribute('data-lang') || detectLang();
+      var next = cur === 'zh' ? 'en' : 'zh';
+      localStorage.setItem('ms-lang', next);
+      applyLang(next);
+    }
+
+    applyLang(detectLang());
+
+    /* ══ TOC active state on scroll ══ */
+    var sections = document.querySelectorAll('.privacy-section');
+    var tocLinks = document.querySelectorAll('.toc-list a');
+    new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          var id = e.target.id;
+          tocLinks.forEach(function(a) { a.classList.toggle('active', a.getAttribute('href') === '#' + id); });
+        }
+      });
+    }, { rootMargin: '-20% 0px -60% 0px' }).observe
+    /* observe all sections */
+    ;
+    sections.forEach(function(s) {
+      new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            tocLinks.forEach(function(a) { a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id); });
+          }
+        });
+      }, { rootMargin: '-20% 0px -60% 0px' }).observe(s);
+    });
+  </script>
+
+</body>
+</html>
